@@ -7,6 +7,12 @@ from django.http import HttpResponse
 from .forms import CustomRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 
+#for apis
+from .serializers import playerSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import players
+
 
 
 # Create your views here.
@@ -62,3 +68,11 @@ def userLogout(request):
     logout(request)
     return HttpResponseRedirect('/login')
 
+class playerView(APIView):
+    def get(self, request):
+        player1 = players.objects.all()
+        serialize = playerSerializer(player1, many=True)
+        return Response(serialize.data)
+    
+    def post(self):
+        pass
