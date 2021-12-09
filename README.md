@@ -99,3 +99,8 @@ Now, run the server using `python manage.py runserver`.
 
 
 
+# Creating Admin Views
+
+```
+python manage.py createsuperuser
+```
