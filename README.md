@@ -4,7 +4,6 @@ Quick guide to start with learning Django
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FUnpredictablePrashant%2FLearningDjango&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 
-
 ## Installing Django
 
 ```
@@ -56,3 +55,47 @@ Finally configure the urls.py file inside the  project folder (in our case that 
 Here we will create the route and add the instance of urls.py from the app folder (`blogpage`).<br>
 Run the server!
 </p>
+
+
+## Registration Page
+<p>
+Django has inbuilt models defined for authentication, and authorization and we will use those models to create a registration form. You can find this models stored inside your lib folder under python installation. In my case the complete path is:
+`C:\Python39\Lib\site-packages\django\contrib\auth`. Here in `forms.py`, you can see all the forms structure which we will use. <br><br>
+Let's start by creating a function called as `register` inside `views.py` and then create a route through `urls.py`.
+</p>
+```
+def register(request):
+    f = UserCreationForm()
+    return render(request, 'register.html', {'form': f})
+```
+<p>Create a register.html file inside the templates directory. Once done, start the migration process, which basically setup your database.</p>
+
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+Once done, you can check your `postgres` database and you can see tables being created.
+
+```
+djangosample=# \dt
+                   List of relations
+ Schema |            Name            | Type  |  Owner
+--------+----------------------------+-------+----------
+ public | auth_group                 | table | postgres
+ public | auth_group_permissions     | table | postgres
+ public | auth_permission            | table | postgres
+ public | auth_user                  | table | postgres
+ public | auth_user_groups           | table | postgres
+ public | auth_user_user_permissions | table | postgres
+ public | django_admin_log           | table | postgres
+ public | django_content_type        | table | postgres
+ public | django_migrations          | table | postgres
+ public | django_session             | table | postgres
+(10 rows)
+```
+
+Now, run the server using `python manage.py runserver`.
+
+
+
